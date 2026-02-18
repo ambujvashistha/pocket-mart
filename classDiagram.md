@@ -1,6 +1,5 @@
 # Class Diagram – PocketMart
 
----
 
 This diagram represents the core domain models and backend layered architecture of PocketMart.
 
