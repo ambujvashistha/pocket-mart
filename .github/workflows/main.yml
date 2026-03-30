@@ -1,0 +1,14 @@
+name: Ci Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - run: npm i
+        working-directory: server
+      - run: npm test
+        working-directory: server
