@@ -1,21 +1,44 @@
 name: Ci Pipeline
 
-on: [push]
+on:
+  push:
+  pull_request:
 
 jobs:
-  build:
+  checks:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            client/package-lock.json
+            server/package-lock.json
 
-      - name: Run bash script
-        run: ./build.sh
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Run server tests
+        working-directory: server
+        run: npm test -- --runInBand --watchman=false
+
+      - name: Install client dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Run client linter
+        working-directory: client
+        run: npm run lint
+
+      - name: Run client tests
+        working-directory: client
+        run: npm test -- --run
+
+      - name: Build client
+        working-directory: client
+        run: npm run build
