@@ -2,10 +2,11 @@
   "name": "shopsmart-backend",
   "version": "1.0.0",
   "description": "Backend API for ShopSmart",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "test": "jest --watchman=false",
     "lint": "echo 'No linter configured yet'"
   },
@@ -15,8 +16,13 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.7",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
